@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trek Band - Gelang GPS untuk Keamanan Pendaki</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #16a34a;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dbeafe 100%);
+            padding: 120px 0 80px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+
+        .hero-text h2 {
+            font-size: 2rem;
+            color: #16a34a;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: #6b7280;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #dcfce7;
+            color: #166534;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: #16a34a;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #15803d;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #16a34a;
+            border: 2px solid #16a34a;
+        }
+
+        .btn-outline:hover {
+            background: #16a34a;
+            color: white;
+        }
+
+        .hero-image {
+            text-align: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: #6b7280;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* About Section */
+        .about {
+            background: white;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .about-features {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            color: #16a34a;
+            margin-top: 4px;
+        }
+
+        .feature-item h3 {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-item p {
+            color: #6b7280;
+        }
+
+        /* Product Section */
+        .product {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dbeafe 100%);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .product-card h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-card p {
+            color: #6b7280;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #16a34a;
+        }
+
+        /* Features Section */
+        .features {
+            background: white;
+        }
+
+        .features-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .features-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            background: #f9fafb;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+
+        .step-1 { background: #dcfce7; color: #16a34a; }
+        .step-2 { background: #dbeafe; color: #2563eb; }
+        .step-3 { background: #fee2e2; color: #dc2626; }
+
+        .step-card h3 {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        /* Target Market Section */
+        .target-market {
+            background: white;
+        }
+
+        .target-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: #16a34a;
+            color: white;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .btn-white {
+            background: white;
+            color: #16a34a;
+        }
+
+        .btn-white:hover {
+            background: #f3f4f6;
+        }
+
+        .btn-outline-white {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline-white:hover {
+            background: white;
+            color: #16a34a;
+        }
+
+        /* Footer */
+        footer {
+            background: #f9fafb;
+            padding: 2rem 0;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: #16a34a;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero-content,
+            .about-content,
+            .features-content,
+            .target-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-text h2 {
+                font-size: 1.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Icons using CSS */
+        .icon {
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .icon-shield { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%2316a34a' viewBox='0 0 24 24'%3E%3Cpath d='M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z'/%3E%3C/svg%3E"); }
+        .icon-mountain { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%2316a34a' viewBox='0 0 24 24'%3E%3Cpath d='M14 6l-3.75 5 2.85 3.8-1.6 1.2C9.81 13.75 7 10 7 10l-6 8h22l-9-12z'/%3E%3C/svg%3E"); }
+        .icon-battery { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%2316a34a' viewBox='0 0 24 24'%3E%3Cpath d='M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z'/%3E%3C/svg%3E"); }
+        .icon-map { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%2316a34a' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'/%3E%3C/svg%3E"); }
+        .icon-phone { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%2316a34a' viewBox='0 0 24 24'%3E%3Cpath d='M17 2H7c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H7V6h10v10z'/%3E%3C/svg%3E"); }
+        .icon-zap { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%2316a34a' viewBox='0 0 24 24'%3E%3Cpath d='M13 2L3 14h9l-1 8 10-12h-9l1-8z'/%3E%3C/svg%3E"); }
+        .icon-users { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%2316a34a' viewBox='0 0 24 24'%3E%3Cpath d='M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A3.01 3.01 0 0 0 16.5 6.5h-1c-1.66 0-3 1.34-3 3 0 .35.07.69.18 1H9c-1.1 0-2 .9-2 2v8h2v7h9v-5z'/%3E%3C/svg%3E"); }
+        .icon-clock { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%2316a34a' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm4.2 14.2L11 13V7h1.5v5.2l4.5 2.7-.8 1.3z'/%3E%3C/svg%3E"); }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/T%20%282%29-2Z7BARpZHvBY0LFrJC38zdhelfQGoM.png" alt="Trek Band">
+            </div>
+            <ul class="nav-links">
+                <li><a href="#about">Tentang</a></li>
+                <li><a href="#product">Produk</a></li>
+                <li><a href="#features">Fitur</a></li>
+                <li><a href="#how-it-works">Cara Kerja</a></li>
+                <li><a href="#target">Target Pasar</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="badge">Teknologi GPS Terdepan</div>
+                    <h1>Trek Band</h1>
+                    <h2>Gelang GPS untuk Keamanan Pendaki</h2>
+                    <p>Jelajahi alam dengan tenang. Trek Band memungkinkan basecamp melacak posisi Anda secara real-time, memastikan keselamatan di setiap petualangan pendakian.</p>
+                    <div class="cta-buttons">
+                        <a href="#product" class="btn btn-primary">Pesan Sekarang</a>
+                        <a href="#about" class="btn btn-outline">Pelajari Lebih Lanjut</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="D:\Blender\trek-band-landing\img\A partnership between Speedo and wearable maker Misfit has given birth to the Speedo Shine, a fitness tracker designed specifically for swimmers.jpg" alt="Trek Band GPS Bracelet">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>Tentang Trek Band</h2>
+                <p>Trek Band adalah solusi inovatif untuk keselamatan pendaki gunung. Dikembangkan khusus untuk komunitas pendaki Indonesia, gelang pintar ini menggabungkan teknologi GPS canggih dengan desain yang tahan cuaca ekstrem.</p>
+            </div>
+            <div class="about-content">
+                <img src="D:\Blender\trek-band-landing\img\UltraLinx.jpg" alt="Pendaki menggunakan Trek Band">
+                <div class="about-features">
+                    <div class="feature-item">
+                        <div class="icon icon-shield"></div>
+                        <div>
+                            <h3>Keamanan Terjamin</h3>
+                            <p>Sistem pelacakan real-time yang memungkinkan basecamp memantau posisi pendaki 24/7</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon icon-mountain"></div>
+                        <div>
+                            <h3>Tahan Cuaca Ekstrem</h3>
+                            <p>Dirancang khusus untuk kondisi cuaca ekstrem di pegunungan Indonesia</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon icon-battery"></div>
+                        <div>
+                            <h3>Daya Tahan Lama</h3>
+                            <p>Baterai tahan hingga 7 hari untuk ekspedisi panjang</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Section -->
+    <section id="product" class="product">
+        <div class="container">
+            <div class="section-header">
+                <h2>Produk Trek Band</h2>
+                <p>Gelang GPS yang dirancang khusus untuk kebutuhan pendaki Indonesia</p>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="D:\Blender\trek-band-landing\img\gelang_1.png" alt="Trek Band Classic">
+                </div>
+                <div class="product-card">
+                    <img src="D:\Blender\trek-band-landing\img\gelang_2.png" alt="Trek Band Pro">
+                </div>
+                <div class="product-card">
+                    <img src="D:\Blender\trek-band-landing\img\gelang_3.png" alt="Trek Band Explorer">
+                </div>
+            </div>
+             <div class="product-grid">
+                <div class="product-card">
+                    <img src="D:\Blender\trek-band-landing\img\gelang_4.png" alt="Trek Band Classic">
+                </div>
+                <div class="product-card">
+                    <img src="D:\Blender\trek-band-landing\img\gelang_5.png" alt="Trek Band Pro">
+                </div>
+                <div class="product-card">
+                    <img src="D:\Blender\trek-band-landing\img\gelang_6.png" alt="Trek Band Explorer">
+                </div>
+            </div>
+            <div class="section-header" style="margin-top: 80px;">
+                <p>Trek Band bukan sekadar gelang GPS—ini adalah teman setia dalam setiap langkah pendakianmu. Didesain khusus untuk menjawab tantangan pendaki Indonesia, Trek Band menghadirkan teknologi pelacakan lokasi real-time, pemantauan detak jantung, dan tombol SOS yang bisa menyelamatkan nyawa saat darurat.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">    
+        <div class="container">
+            <div class="section-header">
+                <h2>Fitur Unggulan</h2>
+                <p>Teknologi canggih yang memastikan keselamatan dan kenyamanan pendaki</p>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="icon icon-map"></div>
+                        <div>
+                            <h3>GPS Real-Time</h3>
+                            <p>Pelacakan posisi akurat dengan update setiap 30 detik, memungkinkan basecamp memantau lokasi pendaki secara real-time</p>
+                        </div>
+                </div>
+                <div class="product-card">
+                        <div class="icon icon-phone"></div>
+                        <div>
+                            <h3>Aplikasi Mobile</h3>
+                            <p>Aplikasi khusus untuk basecamp dengan interface yang mudah digunakan dan notifikasi darurat otomatis</p>
+                        </div>
+                </div>
+                <div class="product-card">
+                        <div class="icon icon-zap"></div>
+                        <div>
+                            <h3>SOS Emergency</h3>
+                            <p>Tombol darurat yang langsung mengirim sinyal ke basecamp dengan koordinat lokasi yang tepat</p>
+                        </div>
+                </div>
+                        <div class="product-card">
+                        <div class="icon icon-shield"></div>
+                        <div>
+                            <h3>Waterproof IP68</h3>
+                            <p>Tahan air dan debu dengan sertifikasi IP68, cocok untuk segala kondisi cuaca ekstrem</p>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2>Cara Kerja Trek Band</h2>
+                <p>Sistem pelacakan yang mudah dan efektif dalam 3 langkah sederhana</p>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number step-1">1</div>
+                    <h3>Aktivasi Gelang</h3>
+                    <p>Pendaki mengaktifkan Trek Band sebelum memulai pendakian. Gelang akan otomatis terhubung dengan satelit GPS</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number step-2">2</div>
+                    <h3>Pelacakan Real-Time</h3>
+                    <p>Basecamp dapat memantau posisi pendaki melalui aplikasi mobile dengan update lokasi setiap 30 detik</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number step-3">3</div>
+                    <h3>Respons Darurat</h3>
+                    <p>Jika terjadi keadaan darurat, pendaki dapat menekan tombol SOS untuk mengirim sinyal bantuan ke basecamp</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Market Section -->
+    <section id="target" class="target-market">
+        <div class="container">
+            <div class="section-header">
+                <h2>Target Pasar</h2>
+                <p>Trek Band dirancang untuk berbagai kalangan pecinta alam Indonesia</p>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="icon icon-users"></div>
+                        <div>
+                            <h3>Komunitas Pendaki</h3>
+                            <p>Kelompok pendaki gunung yang mengutamakan keselamatan anggota dan membutuhkan sistem monitoring yang handal</p>
+                        </div>
+                </div>
+                <div class="product-card">
+                        <div class="icon icon-mountain"></div>
+                        <div>
+                            <h3>Basecamp & Operator</h3>
+                            <p>Pengelola basecamp dan operator tur pendakian yang ingin meningkatkan standar keselamatan layanan mereka</p>
+                        </div>
+                </div>
+                <div class="product-card">
+                        <div class="icon icon-clock"></div>
+                        <div>
+                            <h3>Pendaki Solo</h3>
+                            <p>Pendaki individu yang sering melakukan solo hiking dan membutuhkan jaminan keselamatan ekstra</p>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Mulai Petualangan Aman Anda</h2>
+            <p>Jangan biarkan kekhawatiran menghalangi petualangan Anda. Dapatkan Trek Band sekarang dan nikmati pendakian dengan tenang.</p>
+            <div class="cta-buttons">
+                <a href="https://www.instagram.com/trekband.ofc/" class="btn btn-white">Pesan Trek Band</a>
+                <a href="https://www.instagram.com/trekband.ofc/" class="btn btn-outline-white">Hubungi Kami</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/T%20%282%29-2Z7BARpZHvBY0LFrJC38zdhelfQGoM.png" alt="Trek Band" style="height: 24px;">
+                    <p style="color: #6b7280; font-size: 0.9rem;">© 2025 Trek Band. Semua hak dilindungi undang-undang.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#">Syarat & Ketentuan</a>
+                    <a href="#">Kebijakan Privasi</a>
+                    <a href="mailto:trekband1@gmail.com">Kontak</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle (basic implementation)
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+
+        // Simple animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections for animation
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
